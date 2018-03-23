@@ -1,0 +1,101 @@
+
+    <div class="container">
+        <div class="col-sm-8 col-sm-offset-2">
+            
+ <div class="row" style="margin:0px;">
+   
+          <!--<form id="msform" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>-->
+          	<div id="msform">
+           <fieldset>
+                <div class="logo col-md-12">
+					<div class="col-md-12 text-center">
+						<img class="loan_logo" src="img/loan_logo.png">
+					</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<a  (click)="facebookloginfunction()" class="btn btn-primary btn-block">Facebook</a>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<a (click)="googleloginfunction()" class="btn btn-info btn-block"> Google</a>
+						</div>
+					</div>
+					
+					<div class="col-md-12">
+						<h2 class="text-center">or</h2>
+					</div>
+						<div *ngIf="!showhide">
+					<form  name="otpform" (ngSubmit)="f.form.valid && sendOtpFunction( f.value, f.valid )" #f="ngForm" novalidate>
+						<div class="form-group">
+					
+						   <input placeholder="Mobile No" type="text" class="form-control" id="mobilenumber"
+   							required
+   							[(ngModel)]="model.mobile" name="mobilenumber"
+   							pattern="[0-9]*"
+   							minlength="10"
+   							maxlength="10" 
+   							autocomplete="off" 
+   							#mobile="ngModel">
+   <small [hidden]="mobile.valid || mobile.pristine"
+      class="text-danger">
+      <div [hidden]="!mobile.hasError('minlength')">Mobile should be 10digit</div>
+      <div [hidden]="!mobile.hasError('required')">Mobile is required</div>
+      <div [hidden]="!mobile.hasError('pattern')">Mobile numberr should be only numbers</div>
+   </small>
+					</div>
+               
+				<button type="submit"  id="Send" class="previous action-button-previous">Send</button>
+
+					</form>
+				</div>
+					<div *ngIf="showhide" >
+					<form name="loginform" (ngSubmit)="f.form.valid && loginFunction( f.value, f.valid )" #f="ngForm" novalidate>
+						<div class="form-group">
+					
+ <input placeholder="Mobile No" type="text" class="form-control" id="mobilenumber"
+   							required
+   							[(ngModel)]="model.mobile" name="mobilenumber"
+   							pattern="[0-9]*"
+   							minlength="10"
+   							maxlength="10" 
+   							readonly="readonly" 
+   							#mobile="ngModel">
+					</div>
+						<!-- <div  class="mt15 OTP" >
+						
+					<div class="form-group">
+						<input [(ngModel)]="otp.otp" #otp="ngModel"type="text" name="OTP" placeholder="OTP" required/>
+					</div>
+				<button class="action-button login-button" type="submit">Login</button> 
+				<div class="form-group">
+						<p><a href="#" class="pull-right">Click Here if OTP Not Received</a></p>
+					</div>
+            </div> -->
+					</form>
+					</div>
+            
+			  
+			</fieldset>
+            
+        </div>
+ 
+</div>  
+ </div>
+ </div>   
+    
+    
+        <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
+            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+        </div>
+        <div class="form-group">
+            <button [disabled]="loading" class="btn btn-primary">Login</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a [routerLink]="['/register']" class="btn btn-link">Register</a>
+        </div> -->
+       
+
